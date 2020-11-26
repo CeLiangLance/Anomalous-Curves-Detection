@@ -34,7 +34,8 @@ Detection_demo.ipynb offers two methods to visualize the result:
 red: normal curves\
 white : anomalous curves
 2. anomalous fibers removal
-![test](/assets/img/philly-magic-garden.jpg "two methods")
+
+![test](/pic/tt.png "two methods")
 ## Model Choice 
 ```
 index: 0       model: deep Bi GRU
