@@ -23,7 +23,7 @@ If you run this sample, you could find two files in the folder /result\
 -156031_ex_cc-body_shore_cleaned_m0.ply\
 the anomaly removed version  
 -Detection156031_m0.npy\
-a list of the detection result 1：normal 2：anomaly 
+a list of the detection result 1：normal 0：anomaly 
 
 
 
