@@ -30,7 +30,7 @@ a list of the detection result 1：normal 0：anomaly
 
 
 -  -m    Specify the model\
-the model choice will be explained later
+Default: 0. the model choice will be explained later
 -  -f    Input the file name\
 the file is in /data folder, there is an sample   
 -  -t    Specify the threshold percentile\
