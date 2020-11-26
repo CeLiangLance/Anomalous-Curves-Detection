@@ -7,12 +7,14 @@ Requirment:
 4. fury 
 5. plyfile
 
+Running tip: create a **tensorflow-cpu** environment to run is safer since you might have a memory problem if you are using tensorflow-gpu and your gpu memory is not high. 
+
 ## Quick detection
 
 ```python Detection.py -f 156031_ex_cc-body_shore.ply ```
 
 >the terminal will print the following and generate the result in /result\
-model_type          = 'deep Bi GRU',default choice\
+model_type          =  0,default choice\
 file_name           = '156031_ex_cc-body_shore.ply'\
 threshold control   = 80, default value\
 length  control     = 40, default value
@@ -61,4 +63,4 @@ The Seq2seq related models are implemented in a different way, so we create a ne
 the **-Detection.ipynb demonstrated how to generate the detection result.
 
 ## Anomaly Detection Performance
-In performance_analysis.ipynb, we demonstrated how to evaluate the Anomaly detection performance between different models ans with the manually Detection results. 
+In performance_analysis.ipynb, we demonstrated how to evaluate the Anomaly detection performance between different models and with the manually Detection results. 
