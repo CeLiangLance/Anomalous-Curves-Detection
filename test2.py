@@ -14,7 +14,7 @@ from sklearn.metrics import mean_squared_error
 from dipy.tracking.streamline import Streamlines
 from dipy.tracking.streamlinespeed import length
                                           
-
+#%%
 class PlyStruct:
     """Class that process poly data"""
 
@@ -71,6 +71,51 @@ def cal_mse(data_raw,data_pred):
     return mse  
 
 
+def write_ply_data(output_path, ply_data, ply_idx, property_names):
+    """
+    Write ply data to ply file.
+    :param str output_path: output file path
+    :param ndarray ply_data: 2D array with vertex data
+    :param ndarray ply_idx: 1D array with end indices of fibers
+    :param list property_names: list of property names, len should be equal to ply_data.shape[1]
+    """
+    property_string = ''.join([f'property float {i}\n' for i in property_names])
+    header = f"comment DTI Tractography, produced by mrtrix tckgen\n" \
+        f"element vertices {len(ply_data)}\n" \
+        f"{property_string}" \
+        f"element fiber {len(ply_idx)}\n" \
+        f"property int endindex\n" \
+        f"end_header\n"
+
+    with open(output_path, 'w') as file:
+        file.write("ply\nformat ascii 1.0\n")
+        file.write(header)
+        for ply_vertex in ply_data:
+            file.write("{} {} {}\n".format(ply_vertex[0],ply_vertex[1],ply_vertex[2]))
+        for stream_id in ply_idx:
+            file.write(f"{stream_id}\n")
+            
+
+
+def npz2ply_cleaned(data,name):
+       
+    data = data.astype(np.float32)
+
+    ply_idx = []
+    fiber = data[0]
+    fiber = zero_remove(fiber)
+    ply_idx.append(np.shape(fiber)[0])
+    
+    for i in range(1, np.shape(data)[0]):
+        tmp = data[i]
+        tmp = zero_remove(tmp)
+        ply_idx.append(np.shape(tmp)[0]+ply_idx[-1])
+        fiber = np.concatenate((fiber,tmp))
+        
+    
+    write_ply_data(os.path.join('result',os.path.splitext(name)[0]+'_cleaned_m'+str(model_type)+'.ply'), fiber, ply_idx, ['x','y','z'])
+
+
 def ply2np(name):
     # convert a ply format to the matrix we are using
     # input : '128127_ex_cc-body_shore.ply', name of a oly file
@@ -102,7 +147,7 @@ model_list = ['deep_bi_GRU.h5', 'deep_bi_LSTM.h5', 'deep_GRU.h5', 'deep_LSTM.h5'
 #%%
 name = '156031_ex_cc-body_shore.ply'
 bundle = ply2np(name)
-
+model_type = 2
 
 model_path = os.path.join('trained_models','deep_GRU.h5')
 
@@ -136,6 +181,11 @@ pred = 1*((pred_1 + pred_2)>1)
 
 
 
+data_new = np.delete(bundle, np.where(pred == 0), axis=0)
+
+npz2ply_cleaned(data_new,name)
+#%%
+
 import sys
 sys.path.append(r'toolkit')
 from visualize_score import  visualize_streamline, visualize_streamline_removed
@@ -160,7 +210,7 @@ from dipy.tracking.streamlinespeed import (compress_streamlines, length,
                                            set_number_of_points)
 
 
-data_new = np.delete(bundle, np.where(pred == 0), axis=0)
+#data_new = np.delete(bundle, np.where(pred == 0), axis=0)
 
 
 
@@ -197,22 +247,36 @@ window.show(scene)
 
 
 
-
-
-t1 = np.load(os.path.join('result', 'Detection156031.npy'),allow_pickle=True)
-t2 = np.load(os.path.join('result', 'Detection156031_m0.npy'),allow_pickle=True)
-t3 = np.load(os.path.join('result', 'Detection156031_m2.npy'),allow_pickle=True)
+name = '156031_ex_cc-body_shore_cleaned_m2.ply'
+bbb = ply2np(name)
 
 
 
 
-print(np.sum(1*(t1==t2)))
+from dipy.viz import colormap
+from dipy.viz import actor, window
+
+subsamp_sls = Streamlines()
+
+for i in range(np.shape(bbb)[0]):
+    tmp = bbb[i]
+    tmp = zero_remove(tmp)
+    #tmp = tmp[~np.all(tmp == 0, axis=-1)]
+    #tmp = np.around(tmp, decimals=0)
+    subsamp_sls.append(tmp)
+    
 
 
+color = colormap.line_colors(subsamp_sls)
 
+streamlines_actor = actor.line(subsamp_sls,
+                               colormap.line_colors(subsamp_sls))
 
+# Create the 3D display.
+scene = window.Scene()
+scene.add(streamlines_actor)
 
-
+window.show(scene)
 
 
 
