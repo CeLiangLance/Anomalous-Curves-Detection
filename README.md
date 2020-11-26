@@ -7,12 +7,14 @@ Requirment:
 4. fury 
 5. plyfile
 
+Running tip: create a **tensorflow-cpu** environment to run is safer since you might have a memory problem if you are using tensorflow-gpu and your gpu memory is not high. 
+
 ## Quick detection
 
 ```python Detection.py -f 156031_ex_cc-body_shore.ply ```
 
 >the terminal will print the following and generate the result in /result\
-model_type          = 'deep Bi GRU',default choice\
+model_type          =  0,default choice\
 file_name           = '156031_ex_cc-body_shore.ply'\
 threshold control   = 80, default value\
 length  control     = 40, default value
@@ -34,14 +36,18 @@ Detection_demo.ipynb offers two methods to visualize the result:
 red: normal curves\
 white : anomalous curves
 2. anomalous fibers removal
-![test](/assets/img/philly-magic-garden.jpg "two methods")
+
+![test](/pic/tt.png "two methods")
 ## Model Choice 
+You can choose one of the following models\
+models 0，1，2，3，6，9，10 has better result.\
+The implementation of these models could be found in /models. 
 ```
 index: 0       model: deep Bi GRU
 index: 1       model: deep Bi LSTM
 index: 2       model: deep GRU
 index: 3       model: deep LSTM
-index: 4       model: Bi GRU.h5
+index: 4       model: Bi GRU
 index: 5       model: Undercomplete GRU
 index: 6       model: Autoencoder GRU
 index: 7       model: Bidirectional LSTM
@@ -51,3 +57,10 @@ index: 10      model: Autoencoder RNN
 index: 11      model: Bidirectional RNN
 index: 12      model: Undercomplete RNN
 ```
+
+## The Seq Related Models 
+The Seq2seq related models are implemented in a different way, so we create a new folder /Seq_models to store the weights and code.
+the **-Detection.ipynb demonstrated how to generate the detection result.
+
+## Anomaly Detection Performance
+In performance_analysis.ipynb, we demonstrated how to evaluate the Anomaly detection performance between different models and with the manually Detection results. 
