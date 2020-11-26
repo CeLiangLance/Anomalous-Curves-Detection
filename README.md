@@ -13,11 +13,19 @@ Running tip: create a **tensorflow-cpu** environment to run is safer since you m
 
 ```python Detection.py -f 156031_ex_cc-body_shore.ply ```
 
->the terminal will print the following and generate the result in /result\
+>the terminal will print the following and generate the results\
 model_type          =  0,default choice\
 file_name           = '156031_ex_cc-body_shore.ply'\
 threshold control   = 80, default value\
 length  control     = 40, default value
+
+If you run this sample, you could find two files in the folder /result\
+-156031_ex_cc-body_shore_cleaned_m0.ply\
+the anomaly removed version  
+-Detection156031_m0.npy\
+a list of the detection result 1：normal 2：anomaly 
+
+
 
 
 
