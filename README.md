@@ -37,12 +37,15 @@ white : anomalous curves
 
 ![test](/pic/tt.png "two methods")
 ## Model Choice 
+You can choose one of the following models\
+models 0，1，2，3，6，9，10 has better result.\
+The implementation of these models could be found in /models. 
 ```
 index: 0       model: deep Bi GRU
 index: 1       model: deep Bi LSTM
 index: 2       model: deep GRU
 index: 3       model: deep LSTM
-index: 4       model: Bi GRU.h5
+index: 4       model: Bi GRU
 index: 5       model: Undercomplete GRU
 index: 6       model: Autoencoder GRU
 index: 7       model: Bidirectional LSTM
@@ -52,3 +55,10 @@ index: 10      model: Autoencoder RNN
 index: 11      model: Bidirectional RNN
 index: 12      model: Undercomplete RNN
 ```
+
+## The Seq Related Models 
+The Seq2seq related models are implemented in a different way, so we create a new folder /Seq_models to store the weights and code.
+the **-Detection.ipynb demonstrated how to generate the detection result.
+
+## Anomaly Detection Performance
+In performance_analysis.ipynb, we demonstrated how to evaluate the Anomaly detection performance between different models ans with the manually Detection results. 
