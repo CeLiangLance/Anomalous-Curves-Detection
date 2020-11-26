@@ -11,8 +11,7 @@ Requirment:
 
 ```python Detection.py -f 156031_ex_cc-body_shore.ply ```
 
->
-the terminal will print the following and generate the result in /result\
+>the terminal will print the following and generate the result in /result\
 model_type          = 'deep Bi GRU',default choice\
 file_name           = '156031_ex_cc-body_shore.ply'\
 threshold control   = 80, default value\
@@ -33,9 +32,9 @@ Default: 40.
 Detection_demo.ipynb offers two methods to visualize the result:
 1. a binary visualization of the detection\
 red: normal curves\
-white : anomalous curves\
+white : anomalous curves
 2. anomalous fibers removal
-
+![test](/assets/img/philly-magic-garden.jpg "two methods")
 ## Model Choice 
 ```
 index: 0       model: deep Bi GRU
