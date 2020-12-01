@@ -14,7 +14,7 @@ IF_THRE: see contamination from <https://scikit-learn.org/stable/modules/generat
 DIS_THRE and CCI_THRE are set by distribution of distance score and CCI.
 the output file is saved here.
 
-### the file for Manually Detection is in Anomalous-Curves-Detection/data/, not here!
+the file for Manually Detection is in **Anomalous-Curves-Detection/data/**, **not here**!
 the output file is DetectionXXXX_manual.npy, XXXX is the subject ID.
 
 
