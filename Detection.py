@@ -228,3 +228,5 @@ np.save(save_path,pred)
 data_new = np.delete(bundle, np.where(pred == 0), axis=0)
 
 npz2ply_cleaned(data_new,name)
+
+
