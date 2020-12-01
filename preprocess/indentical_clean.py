@@ -19,7 +19,7 @@ from dipy.tracking.distances import bundles_distances_mdf
 from dipy.tracking.streamlinespeed import (compress_streamlines, length,
                                            set_number_of_points)
 import os
-
+import argparse
 from plyfile import PlyData
 
 #%%
@@ -175,8 +175,24 @@ def clean_subject(ndata):
     return gen_array(streamlines_test), np.array(cci[0])
 
 
+parser = argparse.ArgumentParser()
 
-name = 'Raw_156031_ex_cc-body_shore.ply'
+
+
+parser.add_argument('-f', action='store',
+                    dest='file_name',
+                    help='Input the file name')
+
+
+
+results = parser.parse_args()
+
+print('file_name           = {!r}'.format(results.file_name))
+
+
+
+# 'Raw_156031_ex_cc-body_shore.ply'
+name = results.file_name 
 bundle = ply2np(name)
 #%%
 data, _ = clean_subject(bundle)
